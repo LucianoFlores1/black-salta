@@ -8,8 +8,12 @@ interface Props {
 }
 
 const { title = SITE.title, description = SITE.description } = Astro.props;
-const canonical = new URL(Astro.url.pathname, SITE.url).href;
-const ogImage = new URL('/og.jpg', SITE.url).href;
+const base = import.meta.env.BASE_URL.replace(/\/?$/, '/');
+const siteRoot = new URL(base, Astro.site);
+const canonical = new URL(Astro.url.pathname, Astro.site).href;
+const ogImage = new URL('og.jpg', siteRoot).href;
+/** Las vistas previas (p. ej. GitHub Pages) no se indexan para no competir con blacksalta.com. */
+const noindex = import.meta.env.PUBLIC_NOINDEX === 'true';
 
 const DAY_SCHEMA = ['Sunday', 'Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'];
 
@@ -76,15 +80,15 @@ const jsonLd = {
     <title>{title}</title>
     <meta name="description" content={description} />
     <link rel="canonical" href={canonical} />
-    <meta name="robots" content="index, follow, max-image-preview:large" />
+    <meta name="robots" content={noindex ? 'noindex, nofollow' : 'index, follow, max-image-preview:large'} />
     <meta name="theme-color" content="#000000" />
     <meta name="format-detection" content="telephone=no" />
     <meta name="geo.region" content="AR-A" />
     <meta name="geo.placename" content="Salta" />
 
-    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
-    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
-    <link rel="sitemap" href="/sitemap-index.xml" />
+    <link rel="icon" type="image/svg+xml" href={`${base}favicon.svg`} />
+    <link rel="apple-touch-icon" href={`${base}apple-touch-icon.png`} />
+    <link rel="sitemap" href={`${base}sitemap-index.xml`} />
 
     <meta property="og:type" content="website" />
     <meta property="og:site_name" content={SITE.name} />
