@@ -47,6 +47,10 @@
     text-wrap: pretty;
   }
 
+  a, button, label, summary {
+    touch-action: manipulation;
+  }
+
   ::selection {
     background: var(--color-fg);
     color: var(--color-ink);
@@ -113,6 +117,9 @@
   }
   .btn:active {
     transform: scale(0.97);
+  }
+  .btn, .chip {
+    -webkit-touch-callout: none;
   }
   .btn-primary {
     background: var(--color-fg);

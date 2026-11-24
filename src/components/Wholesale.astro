@@ -29,11 +29,11 @@ const perks = [
       </ul>
     </div>
 
-    <div class="rounded-2xl bg-surface p-6 sm:p-9">
+    <div class="-mx-2 rounded-2xl bg-surface p-5 sm:mx-0 sm:p-9">
       <form data-wholesale novalidate class="grid gap-5 sm:grid-cols-2">
         <div class="field">
           <label for="m-nombre">Nombre y apellido</label>
-          <input id="m-nombre" name="nombre" type="text" autocomplete="name" required aria-describedby="m-nombre-error" />
+          <input id="m-nombre" name="nombre" type="text" autocomplete="name" autocapitalize="words" enterkeyhint="next" required aria-describedby="m-nombre-error" />
           <p id="m-nombre-error" class="error" data-error-for="nombre"></p>
         </div>
 
@@ -48,7 +48,7 @@ const perks = [
             id="m-ciudad"
             name="ciudad"
             type="text"
-            autocomplete="address-level2"
+            autocomplete="address-level2" enterkeyhint="next"
             placeholder="Ej.: Orán, Salta"
             required
             aria-describedby="m-ciudad-error"
@@ -63,7 +63,7 @@ const perks = [
             name="telefono"
             type="tel"
             inputmode="tel"
-            autocomplete="tel"
+            autocomplete="tel" enterkeyhint="next"
             placeholder="Ej.: 387 555-1234"
             required
             aria-describedby="m-telefono-error"

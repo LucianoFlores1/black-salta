@@ -7,7 +7,7 @@ const year = new Date().getFullYear();
 
 <footer class="border-t border-line bg-surface pb-28 pt-16 text-sm md:pb-12">
   <div class="wrap">
-    <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1.6fr]">
+    <div class="grid gap-10 md:grid-cols-[1.4fr_1fr_1.6fr] md:gap-12">
       <div>
         <Wordmark class="!text-xl" />
         <p class="mt-4 max-w-[28ch] leading-relaxed text-mute">
@@ -17,7 +17,7 @@ const year = new Date().getFullYear();
 
       <nav aria-label="Secciones">
         <p class="font-medium text-fg">Secciones</p>
-        <ul class="mt-4 space-y-3 text-mute">
+        <ul class="mt-4 grid grid-cols-2 gap-x-6 gap-y-3 text-mute md:block md:space-y-3">
           {
             NAV.map((item) => (
               <li>
@@ -30,7 +30,7 @@ const year = new Date().getFullYear();
         </ul>
       </nav>
 
-      <div>
+      <div class="hidden md:block">
         <p class="font-medium text-fg">Locales</p>
         <ul class="mt-4 space-y-4 text-mute">
           {

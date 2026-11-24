@@ -18,12 +18,12 @@ const posventaWa = waLink(POSVENTA.phone, 'Hola, tengo una consulta de garantía
     </div>
 
     <div class="md:justify-self-end md:text-right">
-      <p class="text-[clamp(4.5rem,12vw,8.5rem)] font-semibold leading-none tracking-[-0.05em]" aria-hidden="true">710</p>
-      <p class="mt-3 inline-flex items-center gap-2 text-sm text-mute" data-store-status={POSVENTA.id} data-state="unknown">
+      <p class="hidden text-[clamp(4.5rem,12vw,8.5rem)] font-semibold leading-none tracking-[-0.05em] md:block" aria-hidden="true">710</p>
+      <p class="inline-flex items-center gap-2 text-sm text-mute md:mt-3" data-store-status={POSVENTA.id} data-state="unknown">
         <span class="status-dot"></span>
         <span data-status-text>{POSVENTA.hoursText[0]}</span>
       </p>
-      <div class="mt-7 flex flex-col gap-3 sm:flex-row md:justify-end">
+      <div class="mt-6 flex flex-col gap-3 sm:flex-row md:mt-7 md:justify-end">
         <a href={posventaWa} target="_blank" rel="noopener" class="btn btn-primary">
           <Icon name="whatsapp" size={18} />
           Escribir a pos venta
@@ -49,8 +49,8 @@ const posventaWa = waLink(POSVENTA.phone, 'Hola, tengo una consulta de garantía
     <ul class="mt-14 border-t border-line md:mt-20">
       {
         STORES.map((store) => (
-          <li class="grid gap-x-10 gap-y-5 border-b border-line py-9 md:grid-cols-[9rem_1fr_1fr_auto] md:items-start md:py-11">
-            <p class="text-[3.5rem] font-semibold leading-[0.9] tracking-[-0.05em] md:text-[4.25rem]" aria-hidden="true">
+          <li class="grid grid-cols-[4.5rem_minmax(0,1fr)] gap-x-4 gap-y-5 border-b border-line py-8 md:grid-cols-[9rem_1fr_1fr_auto] md:items-start md:gap-x-10 md:py-11">
+            <p class="row-span-2 text-[2.5rem] font-semibold leading-[0.9] tracking-[-0.05em] md:row-span-1 md:text-[4.25rem]" aria-hidden="true">
               {store.number}
             </p>
 
@@ -78,7 +78,7 @@ const posventaWa = waLink(POSVENTA.phone, 'Hola, tengo una consulta de garantía
               </dd>
             </dl>
 
-            <div class="flex flex-wrap gap-2 md:flex-col md:items-stretch">
+            <div class="col-span-2 grid grid-cols-2 gap-2 md:col-span-1 md:flex md:flex-col md:items-stretch">
               <a
                 href={waLink(store.phone, `Hola, quería consultar en el local de ${store.street}.`)}
                 target="_blank"
