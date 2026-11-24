@@ -1,0 +1,96 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import hero from '../assets/photos/hero-auriculares.jpg';
+import { MAIN_WHATSAPP, waLink } from '../data/site';
+
+const wa = waLink(MAIN_WHATSAPP, 'Hola Black, quiero hacer una consulta.');
+---
+
+<section id="inicio" class="relative overflow-hidden pt-28 md:pt-36">
+  <div class="wrap relative z-10 text-center">
+    <h1 class="display mx-auto text-[clamp(2.75rem,7.2vw,5.5rem)]">
+      Tecnología importada.<br class="hidden md:block" />
+      <span class="text-mute">Atendida por personas.</span>
+    </h1>
+    <p class="mx-auto mt-6 max-w-[40rem] text-lg leading-relaxed text-mute md:text-xl">
+      Smartwatch, auriculares, TV Box y todo para tu casa. Más de 20 años en la peatonal de Salta, con garantía real y
+      envíos a todo el país.
+    </p>
+
+    <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+      <a href={wa} class="btn btn-primary w-full sm:w-auto" target="_blank" rel="noopener" data-hero-cta>
+        <Icon name="whatsapp" size={18} />
+        Escribinos por WhatsApp
+      </a>
+      <a href="#locales" class="btn btn-ghost w-full sm:w-auto">
+        Ver locales y horarios
+      </a>
+    </div>
+
+    <p class="mt-7 inline-flex items-center gap-2 text-sm text-mute" data-hero-status data-state="unknown" aria-live="polite">
+      <span class="status-dot"></span>
+      <span data-hero-status-text>Tres locales en el centro de Salta</span>
+    </p>
+  </div>
+
+  <div class="hero-media relative mx-auto mt-10 w-full max-w-[1200px] md:mt-14 md:px-10">
+    <Image
+      src={hero}
+      alt="Auriculares inalámbricos negros apoyados en un soporte, sobre fondo negro"
+      widths={[480, 720, 960, 1400, 2000]}
+      sizes="(min-width: 1200px) 1120px, 100vw"
+      loading="eager"
+      fetchpriority="high"
+      class="hero-img aspect-[4/5] w-full object-cover object-[50%_45%] md:aspect-[16/9] md:rounded-2xl md:object-[50%_58%]"
+    />
+  </div>
+</section>
+
+<style>
+  .hero-media {
+    mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+  }
+  .hero-img {
+    animation: hero-settle 1.6s var(--ease-out-expo) both;
+    transform-origin: 50% 30%;
+  }
+  @keyframes hero-settle {
+    from {
+      transform: scale(1.06);
+      opacity: 0.35;
+    }
+  }
+</style>
+
+<script>
+  import { STORES, SITE } from '../data/site';
+  import { storeStatus, zonedNow } from '../scripts/hours';
+
+  const el = document.querySelector<HTMLElement>('[data-hero-status]');
+  const text = document.querySelector<HTMLElement>('[data-hero-status-text]');
+
+  function listJoin(items: string[]) {
+    return items.length > 1 ? `${items.slice(0, -1).join(', ')} y ${items.at(-1)}` : items[0];
+  }
+
+  function update() {
+    if (!el || !text) return;
+    const now = zonedNow(SITE.timeZone);
+    const sales = STORES.filter((s) => s.id !== 'mendoza-710');
+    const open = sales.filter((s) => storeStatus(s, now).open);
+    if (open.length) {
+      el.dataset.state = 'open';
+      text.textContent = `Abierto ahora en ${listJoin(open.map((s) => s.street))}`;
+    } else {
+      el.dataset.state = 'closed';
+      const [first] = sales
+        .map((store) => ({ store, status: storeStatus(store, now) }))
+        .sort((a, b) => a.status.opensIn - b.status.opensIn);
+      text.textContent = `Ahora cerrado · ${first.store.street} ${first.status.label.replace('Cerrado · ', '')}`;
+    }
+  }
+
+  update();
+  setInterval(update, 60_000);
+</script>

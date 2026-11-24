@@ -1,0 +1,280 @@
+---
+import Icon from './Icon.astro';
+import { CATEGORIES } from '../data/site';
+
+const perks = [
+  'Precios especiales para revendedores y comercios.',
+  'Envíos a todo el país, coordinados desde Salta.',
+  'Un contacto directo que conoce tu pedido.',
+];
+---
+
+<section id="mayoristas" class="border-t border-line py-24 md:py-36">
+  <div class="wrap grid gap-14 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
+    <div>
+      <h2 class="display max-w-[12ch] text-[clamp(2.25rem,5vw,3.75rem)]">¿Tenés un comercio? Comprá por mayor.</h2>
+      <p class="mt-6 max-w-[30rem] text-lg leading-relaxed text-mute">
+        Dejanos tus datos y te escribimos con la lista de precios mayoristas. El formulario arma el mensaje y lo envía por
+        WhatsApp.
+      </p>
+      <ul class="mt-10 space-y-4">
+        {
+          perks.map((perk) => (
+            <li class="flex gap-3 text-fg">
+              <Icon name="check" size={20} class="mt-0.5 flex-none text-open" />
+              {perk}
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+
+    <div class="rounded-2xl bg-surface p-6 sm:p-9">
+      <form data-wholesale novalidate class="grid gap-5 sm:grid-cols-2">
+        <div class="field">
+          <label for="m-nombre">Nombre y apellido</label>
+          <input id="m-nombre" name="nombre" type="text" autocomplete="name" required aria-describedby="m-nombre-error" />
+          <p id="m-nombre-error" class="error" data-error-for="nombre"></p>
+        </div>
+
+        <div class="field">
+          <label for="m-comercio">Comercio <span class="opt">(opcional)</span></label>
+          <input id="m-comercio" name="comercio" type="text" autocomplete="organization" />
+        </div>
+
+        <div class="field">
+          <label for="m-ciudad">Ciudad y provincia</label>
+          <input
+            id="m-ciudad"
+            name="ciudad"
+            type="text"
+            autocomplete="address-level2"
+            placeholder="Ej.: Orán, Salta"
+            required
+            aria-describedby="m-ciudad-error"
+          />
+          <p id="m-ciudad-error" class="error" data-error-for="ciudad"></p>
+        </div>
+
+        <div class="field">
+          <label for="m-telefono">Teléfono o WhatsApp</label>
+          <input
+            id="m-telefono"
+            name="telefono"
+            type="tel"
+            inputmode="tel"
+            autocomplete="tel"
+            placeholder="Ej.: 387 555-1234"
+            required
+            aria-describedby="m-telefono-error"
+          />
+          <p id="m-telefono-error" class="error" data-error-for="telefono"></p>
+        </div>
+
+        <fieldset class="sm:col-span-2">
+          <legend class="label">¿Qué te interesa? <span class="opt">(opcional)</span></legend>
+          <div class="mt-3 flex flex-wrap gap-2">
+            {
+              CATEGORIES.map((cat) => (
+                <label class="chip">
+                  <input type="checkbox" name="rubros" value={cat.name} class="sr-only" />
+                  <span>{cat.name}</span>
+                </label>
+              ))
+            }
+          </div>
+        </fieldset>
+
+        <div class="field sm:col-span-2">
+          <label for="m-mensaje">Mensaje <span class="opt">(opcional)</span></label>
+          <textarea id="m-mensaje" name="mensaje" rows="3" placeholder="Contanos qué volumen manejás o qué productos buscás."
+          ></textarea>
+        </div>
+
+        <div class="sm:col-span-2">
+          <button type="submit" class="btn btn-primary w-full">
+            <Icon name="whatsapp" size={18} />
+            Enviar consulta por WhatsApp
+          </button>
+          <p class="mt-3 text-center text-sm text-dim">Se abre WhatsApp con tu mensaje listo. No guardamos tus datos.</p>
+        </div>
+      </form>
+
+      <div data-wholesale-done hidden class="py-6 text-center" tabindex="-1">
+        <span class="mx-auto grid size-12 place-items-center rounded-full bg-open/15 text-open">
+          <Icon name="check" size={24} />
+        </span>
+        <p class="mt-5 text-2xl font-semibold tracking-[-0.02em]">Tu consulta está lista.</p>
+        <p class="mx-auto mt-2 max-w-[28rem] text-mute">
+          Abrimos WhatsApp en otra pestaña. Solo falta tocar enviar. ¿No se abrió?
+        </p>
+        <div class="mt-6 flex flex-col justify-center gap-3 sm:flex-row">
+          <a data-wholesale-link href="#" target="_blank" rel="noopener" class="btn btn-primary">
+            <Icon name="whatsapp" size={18} />
+            Abrir WhatsApp
+          </a>
+          <button type="button" data-wholesale-reset class="btn btn-ghost">Editar datos</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .field {
+    display: flex;
+    flex-direction: column;
+  }
+  .field label,
+  .label {
+    font-size: 0.875rem;
+    font-weight: 500;
+    color: var(--color-fg);
+  }
+  .opt {
+    font-weight: 400;
+    color: var(--color-dim);
+  }
+  .field input,
+  .field textarea {
+    margin-top: 0.5rem;
+    width: 100%;
+    min-height: 3rem;
+    padding: 0.75rem 1rem;
+    border-radius: 0.75rem;
+    background: var(--color-surface-2);
+    color: var(--color-fg);
+    font-size: 1rem;
+    box-shadow: inset 0 0 0 1px var(--color-line);
+    transition: box-shadow 0.2s;
+    resize: vertical;
+  }
+  .field input::placeholder,
+  .field textarea::placeholder {
+    color: var(--color-dim);
+  }
+  .field input:hover,
+  .field textarea:hover {
+    box-shadow: inset 0 0 0 1px var(--color-line-strong);
+  }
+  .field input:focus-visible,
+  .field textarea:focus-visible {
+    outline: none;
+    box-shadow: inset 0 0 0 2px var(--color-link);
+  }
+  .field input[aria-invalid="true"] {
+    box-shadow: inset 0 0 0 2px var(--color-error);
+  }
+  .error {
+    margin-top: 0.4rem;
+    font-size: 0.8125rem;
+    color: var(--color-error);
+  }
+  .error:empty {
+    display: none;
+  }
+  .chip span {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.5rem;
+    padding-inline: 1rem;
+    border-radius: 999px;
+    font-size: 0.9375rem;
+    color: var(--color-mute);
+    box-shadow: inset 0 0 0 1px var(--color-line-strong);
+    cursor: pointer;
+    user-select: none;
+    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+  }
+  @media (hover: hover) {
+    .chip:hover span {
+      color: var(--color-fg);
+    }
+  }
+  .chip input:checked + span {
+    background: var(--color-fg);
+    color: var(--color-ink);
+    box-shadow: none;
+  }
+  .chip input:focus-visible + span {
+    outline: 2px solid var(--color-link);
+    outline-offset: 2px;
+  }
+</style>
+
+<script>
+  import { MAIN_WHATSAPP, waLink } from '../data/site';
+
+  const form = document.querySelector<HTMLFormElement>('[data-wholesale]')!;
+  const done = document.querySelector<HTMLElement>('[data-wholesale-done]')!;
+  const link = done.querySelector<HTMLAnchorElement>('[data-wholesale-link]')!;
+  const reset = done.querySelector<HTMLButtonElement>('[data-wholesale-reset]')!;
+
+  const messages: Record<string, string> = {
+    nombre: 'Escribí tu nombre para saber a quién respondemos.',
+    ciudad: 'Indicá tu ciudad y provincia para calcular el envío.',
+    telefono: 'Necesitamos un teléfono con al menos 8 números para contactarte.',
+  };
+
+  function validate(name: string, value: string) {
+    if (name === 'telefono') return value.replace(/\D/g, '').length >= 8;
+    return value.trim().length >= 2;
+  }
+
+  function setError(input: HTMLInputElement, message: string) {
+    input.setAttribute('aria-invalid', message ? 'true' : 'false');
+    const slot = form.querySelector(`[data-error-for="${input.name}"]`);
+    if (slot) slot.textContent = message;
+  }
+
+  form.querySelectorAll<HTMLInputElement>('input[required]').forEach((input) => {
+    input.addEventListener('blur', () => {
+      if (input.value) setError(input, validate(input.name, input.value) ? '' : messages[input.name]);
+    });
+    input.addEventListener('input', () => {
+      if (input.getAttribute('aria-invalid') === 'true' && validate(input.name, input.value)) setError(input, '');
+    });
+  });
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault();
+    const data = new FormData(form);
+    let firstInvalid: HTMLInputElement | null = null;
+
+    form.querySelectorAll<HTMLInputElement>('input[required]').forEach((input) => {
+      const ok = validate(input.name, input.value);
+      setError(input, ok ? '' : messages[input.name]);
+      if (!ok && !firstInvalid) firstInvalid = input;
+    });
+
+    if (firstInvalid) {
+      (firstInvalid as HTMLInputElement).focus();
+      return;
+    }
+
+    const rubros = data.getAll('rubros').join(', ');
+    const lines = [
+      'Hola Black, quiero comprar por mayor.',
+      '',
+      `Nombre: ${data.get('nombre')}`,
+      data.get('comercio') ? `Comercio: ${data.get('comercio')}` : '',
+      `Ciudad: ${data.get('ciudad')}`,
+      `Teléfono: ${data.get('telefono')}`,
+      rubros ? `Me interesa: ${rubros}` : '',
+      data.get('mensaje') ? `\n${data.get('mensaje')}` : '',
+    ].filter((line, i) => line !== '' || i === 1);
+
+    const href = waLink(MAIN_WHATSAPP, lines.join('\n'));
+    link.href = href;
+    window.open(href, '_blank', 'noopener');
+    form.hidden = true;
+    done.hidden = false;
+    done.focus();
+  });
+
+  reset.addEventListener('click', () => {
+    done.hidden = true;
+    form.hidden = false;
+    form.querySelector<HTMLInputElement>('input')?.focus();
+  });
+</script>

@@ -1,0 +1,449 @@
+{
+  "schemaVersion": 2,
+  "generatedAt": "2026-11-24T17:35:50.358Z",
+  "title": "Design System: Black Salta",
+  "extensions": {
+    "colorMeta": {
+      "ink": {
+        "role": "neutral",
+        "displayName": "Negro Absoluto",
+        "canonical": "#000000",
+        "tonalRamp": [
+          "oklch(15% 0 0)",
+          "oklch(25% 0 0)",
+          "oklch(35% 0 0)",
+          "oklch(45% 0 0)",
+          "oklch(55% 0 0)",
+          "oklch(65% 0 0)",
+          "oklch(80% 0 0)",
+          "oklch(95% 0 0)"
+        ]
+      },
+      "surface": {
+        "role": "neutral",
+        "displayName": "Grafito Profundo",
+        "canonical": "#0e0e10",
+        "tonalRamp": [
+          "oklch(15% 0.004 286)",
+          "oklch(25% 0.004 286)",
+          "oklch(35% 0.004 286)",
+          "oklch(45% 0.004 286)",
+          "oklch(55% 0.004 286)",
+          "oklch(65% 0.004 286)",
+          "oklch(80% 0.004 286)",
+          "oklch(95% 0.004 286)"
+        ]
+      },
+      "surface-2": {
+        "role": "neutral",
+        "displayName": "Grafito Medio",
+        "canonical": "#1a1a1d",
+        "tonalRamp": [
+          "oklch(15% 0.005 286)",
+          "oklch(25% 0.005 286)",
+          "oklch(35% 0.005 286)",
+          "oklch(45% 0.005 286)",
+          "oklch(55% 0.005 286)",
+          "oklch(65% 0.005 286)",
+          "oklch(80% 0.005 286)",
+          "oklch(95% 0.005 286)"
+        ]
+      },
+      "line": {
+        "role": "neutral",
+        "displayName": "Filete",
+        "canonical": "rgb(255 255 255 / 0.1)",
+        "tonalRamp": [
+          "rgb(255 255 255 / 0.04)",
+          "rgb(255 255 255 / 0.06)",
+          "rgb(255 255 255 / 0.08)",
+          "rgb(255 255 255 / 0.1)",
+          "rgb(255 255 255 / 0.14)",
+          "rgb(255 255 255 / 0.18)",
+          "rgb(255 255 255 / 0.24)",
+          "rgb(255 255 255 / 0.32)"
+        ]
+      },
+      "line-strong": {
+        "role": "neutral",
+        "displayName": "Filete Marcado",
+        "canonical": "rgb(255 255 255 / 0.18)",
+        "tonalRamp": [
+          "rgb(255 255 255 / 0.06)",
+          "rgb(255 255 255 / 0.1)",
+          "rgb(255 255 255 / 0.14)",
+          "rgb(255 255 255 / 0.18)",
+          "rgb(255 255 255 / 0.22)",
+          "rgb(255 255 255 / 0.28)",
+          "rgb(255 255 255 / 0.36)",
+          "rgb(255 255 255 / 0.48)"
+        ]
+      },
+      "fg": {
+        "role": "primary",
+        "displayName": "Blanco Vitrina",
+        "canonical": "#f5f5f7",
+        "tonalRamp": [
+          "oklch(15% 0.003 286)",
+          "oklch(25% 0.003 286)",
+          "oklch(35% 0.003 286)",
+          "oklch(45% 0.003 286)",
+          "oklch(55% 0.003 286)",
+          "oklch(65% 0.003 286)",
+          "oklch(80% 0.003 286)",
+          "oklch(95% 0.003 286)"
+        ]
+      },
+      "mute": {
+        "role": "neutral",
+        "displayName": "Gris Segunda Voz",
+        "canonical": "#a1a1a6",
+        "tonalRamp": [
+          "oklch(15% 0.006 286)",
+          "oklch(25% 0.006 286)",
+          "oklch(35% 0.006 286)",
+          "oklch(45% 0.006 286)",
+          "oklch(55% 0.006 286)",
+          "oklch(65% 0.006 286)",
+          "oklch(80% 0.006 286)",
+          "oklch(95% 0.006 286)"
+        ]
+      },
+      "dim": {
+        "role": "neutral",
+        "displayName": "Gris Nota",
+        "canonical": "#86868b",
+        "tonalRamp": [
+          "oklch(15% 0.006 286)",
+          "oklch(25% 0.006 286)",
+          "oklch(35% 0.006 286)",
+          "oklch(45% 0.006 286)",
+          "oklch(55% 0.006 286)",
+          "oklch(65% 0.006 286)",
+          "oklch(80% 0.006 286)",
+          "oklch(95% 0.006 286)"
+        ]
+      },
+      "open": {
+        "role": "tertiary",
+        "displayName": "Verde Abierto",
+        "canonical": "#32d74b",
+        "tonalRamp": [
+          "oklch(15% 0.2 145)",
+          "oklch(25% 0.2 145)",
+          "oklch(35% 0.2 145)",
+          "oklch(45% 0.2 145)",
+          "oklch(55% 0.2 145)",
+          "oklch(65% 0.2 145)",
+          "oklch(80% 0.2 145)",
+          "oklch(95% 0.2 145)"
+        ]
+      },
+      "closed": {
+        "role": "tertiary",
+        "displayName": "Ámbar Cerrado",
+        "canonical": "#ff9f0a",
+        "tonalRamp": [
+          "oklch(15% 0.17 65)",
+          "oklch(25% 0.17 65)",
+          "oklch(35% 0.17 65)",
+          "oklch(45% 0.17 65)",
+          "oklch(55% 0.17 65)",
+          "oklch(65% 0.17 65)",
+          "oklch(80% 0.17 65)",
+          "oklch(95% 0.17 65)"
+        ]
+      },
+      "link": {
+        "role": "secondary",
+        "displayName": "Azul Enlace",
+        "canonical": "#5eb0ff",
+        "tonalRamp": [
+          "oklch(15% 0.14 250)",
+          "oklch(25% 0.14 250)",
+          "oklch(35% 0.14 250)",
+          "oklch(45% 0.14 250)",
+          "oklch(55% 0.14 250)",
+          "oklch(65% 0.14 250)",
+          "oklch(80% 0.14 250)",
+          "oklch(95% 0.14 250)"
+        ]
+      },
+      "error": {
+        "role": "tertiary",
+        "displayName": "Rojo Error",
+        "canonical": "#ff6961",
+        "tonalRamp": [
+          "oklch(15% 0.17 25)",
+          "oklch(25% 0.17 25)",
+          "oklch(35% 0.17 25)",
+          "oklch(45% 0.17 25)",
+          "oklch(55% 0.17 25)",
+          "oklch(65% 0.17 25)",
+          "oklch(80% 0.17 25)",
+          "oklch(95% 0.17 25)"
+        ]
+      }
+    },
+    "typographyMeta": {
+      "display": {
+        "displayName": "Display",
+        "purpose": "Titular del hero y de la sección destacada, en dos voces."
+      },
+      "headline": {
+        "displayName": "Headline",
+        "purpose": "Titulares de sección, ancho limitado en ch."
+      },
+      "statement": {
+        "displayName": "Statement",
+        "purpose": "Párrafo manifiesto que se ilumina palabra por palabra con el scroll."
+      },
+      "numeral": {
+        "displayName": "Numeral",
+        "purpose": "Números gigantes identificadores (710, 01–03); siempre aria-hidden."
+      },
+      "title": {
+        "displayName": "Title",
+        "purpose": "Nombres de categorías, calles, redes y datos."
+      },
+      "lead": {
+        "displayName": "Lead",
+        "purpose": "Bajadas en Gris Segunda Voz bajo los titulares."
+      },
+      "body": {
+        "displayName": "Body",
+        "purpose": "Texto corrido, horarios y formularios."
+      },
+      "label": {
+        "displayName": "Label",
+        "purpose": "Etiquetas de formulario, estado en vivo, nav y footer."
+      }
+    },
+    "shadows": [
+      {
+        "name": "floating",
+        "value": "0 8px 30px rgb(0 0 0 / 0.6)",
+        "purpose": "Solo elementos fijos que flotan sobre el contenido (barra CTA mobile)."
+      },
+      {
+        "name": "hairline-ring",
+        "value": "inset 0 0 0 1px rgb(255 255 255 / 0.18)",
+        "purpose": "Contorno de botones ghost y chips."
+      },
+      {
+        "name": "field-ring",
+        "value": "inset 0 0 0 1px rgb(255 255 255 / 0.1)",
+        "purpose": "Campos en reposo; 2px link en foco, 2px error si es inválido."
+      },
+      {
+        "name": "nav-glass",
+        "value": "background: rgb(0 0 0 / 0.72); backdrop-filter: saturate(180%) blur(20px)",
+        "purpose": "Nav al scrollear; 0.94 de opacidad con el menú mobile abierto."
+      },
+      {
+        "name": "focus-ring",
+        "value": "outline: 2px solid #5eb0ff; outline-offset: 3px",
+        "purpose": "Foco global por teclado."
+      }
+    ],
+    "motion": [
+      {
+        "name": "ease-out-expo",
+        "value": "cubic-bezier(0.16, 1, 0.3, 1)",
+        "purpose": "Curva única para transiciones y animaciones."
+      },
+      {
+        "name": "press",
+        "value": "150ms ease-out-expo, scale(0.97)",
+        "purpose": "Respuesta al presionar botones."
+      },
+      {
+        "name": "state",
+        "value": "200ms",
+        "purpose": "Cambios de fondo, texto y aro en hover y foco."
+      },
+      {
+        "name": "nav",
+        "value": "300ms",
+        "purpose": "Aparición del vidrio y filete de la nav."
+      },
+      {
+        "name": "menu-in",
+        "value": "350ms ease-out-expo, desde opacity 0 + translateY(-8px)",
+        "purpose": "Entrada del menú mobile."
+      },
+      {
+        "name": "cta-slide",
+        "value": "500ms ease-out-expo, translateY(120%) a 0",
+        "purpose": "Barra CTA mobile."
+      },
+      {
+        "name": "tile-zoom",
+        "value": "transform 1.2s / filter 0.6s ease-out-expo, scale(1.035)",
+        "purpose": "Hover de fotos en mosaicos."
+      },
+      {
+        "name": "hero-settle",
+        "value": "1.6s ease-out-expo, desde scale(1.06) + opacity 0.35",
+        "purpose": "Entrada de la foto del hero."
+      },
+      {
+        "name": "scroll-reveal",
+        "value": "clip-path inset(0 9% round 28px) a inset(0); scale 1.08 a 1; ligado al scroll",
+        "purpose": "Apertura de la foto destacada."
+      },
+      {
+        "name": "word-light",
+        "value": "color 0.4s ease-out-expo; palabra apagada a fg, ligado al scroll",
+        "purpose": "Statement que se ilumina palabra por palabra."
+      },
+      {
+        "name": "reduced-motion",
+        "value": "durations 0.01ms; efectos de scroll en estado final",
+        "purpose": "Respeto de prefers-reduced-motion."
+      }
+    ],
+    "breakpoints": [
+      {
+        "name": "sm",
+        "value": "640px"
+      },
+      {
+        "name": "md",
+        "value": "768px"
+      },
+      {
+        "name": "lg",
+        "value": "1024px"
+      }
+    ]
+  },
+  "components": [
+    {
+      "name": "Botón primario",
+      "kind": "button",
+      "refersTo": "button-primary",
+      "description": "Píldora blanca, la acción principal (WhatsApp).",
+      "html": "<button class=\"ds-btn-primary\">Escribinos por WhatsApp</button>",
+      "css": ".ds-btn-primary{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:2.875rem;padding:0 1.375rem;border:0;border-radius:999px;background:var(--color-fg,#f5f5f7);color:var(--color-ink,#000);font:500 1rem/1 \"Geist Variable\",ui-sans-serif,system-ui,sans-serif;letter-spacing:-.01em;cursor:pointer;transition:background-color .2s,color .2s,transform .15s cubic-bezier(.16,1,.3,1)}.ds-btn-primary:hover{background:#fff}.ds-btn-primary:active{transform:scale(.97)}.ds-btn-primary:focus-visible{outline:2px solid var(--color-link,#5eb0ff);outline-offset:3px}"
+    },
+    {
+      "name": "Botón ghost",
+      "kind": "button",
+      "refersTo": "button-ghost",
+      "description": "Acción secundaria con aro interno de 1px.",
+      "html": "<button class=\"ds-btn-ghost\">Ver locales y horarios</button>",
+      "css": ".ds-btn-ghost{display:inline-flex;align-items:center;justify-content:center;gap:.5rem;min-height:2.875rem;padding:0 1.375rem;border:0;border-radius:999px;background:transparent;color:var(--color-fg,#f5f5f7);box-shadow:inset 0 0 0 1px var(--color-line-strong,rgb(255 255 255/.18));font:500 1rem/1 \"Geist Variable\",ui-sans-serif,system-ui,sans-serif;letter-spacing:-.01em;cursor:pointer;transition:background-color .2s,transform .15s cubic-bezier(.16,1,.3,1)}.ds-btn-ghost:hover{background:rgb(255 255 255/.06)}.ds-btn-ghost:active{transform:scale(.97)}.ds-btn-ghost:focus-visible{outline:2px solid var(--color-link,#5eb0ff);outline-offset:3px}"
+    },
+    {
+      "name": "Enlace",
+      "kind": "custom",
+      "refersTo": "link",
+      "description": "Enlace azul con flecha de trazo; subrayado solo en hover.",
+      "html": "<a class=\"ds-link\" href=\"#\">Consultar modelos <svg width=\"16\" height=\"16\" viewBox=\"0 0 24 24\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.6\" stroke-linecap=\"round\" stroke-linejoin=\"round\" aria-hidden=\"true\"><path d=\"M5 12h14\"/><path d=\"m13 6 6 6-6 6\"/></svg></a>",
+      "css": ".ds-link{display:inline-flex;align-items:center;gap:.3rem;color:var(--color-link,#5eb0ff);text-decoration:none;text-underline-offset:.2em;font:400 1.125rem/1.5 \"Geist Variable\",ui-sans-serif,system-ui,sans-serif}.ds-link:hover{text-decoration:underline}.ds-link:focus-visible{outline:2px solid var(--color-link,#5eb0ff);outline-offset:3px;border-radius:6px}"
+    },
+    {
+      "name": "Chip de rubro",
+      "kind": "chip",
+      "refersTo": "chip",
+      "description": "Checkbox en píldora; se invierte a blanco al seleccionarse.",
+      "html": "<label class=\"ds-chip\"><input type=\"checkbox\"><span>Smartwatch</span></label><label class=\"ds-chip\"><input type=\"checkbox\" checked><span>Auriculares</span></label>",
+      "css": ".ds-chip{display:inline-block;margin:0 .5rem .5rem 0}.ds-chip input{position:absolute;opacity:0;width:1px;height:1px}.ds-chip span{display:inline-flex;align-items:center;min-height:2.5rem;padding:0 1rem;border-radius:999px;font:400 .9375rem/1 \"Geist Variable\",ui-sans-serif,system-ui,sans-serif;color:var(--color-mute,#a1a1a6);box-shadow:inset 0 0 0 1px var(--color-line-strong,rgb(255 255 255/.18));cursor:pointer;transition:background-color .2s,color .2s,box-shadow .2s}.ds-chip:hover span{color:var(--color-fg,#f5f5f7)}.ds-chip input:checked+span{background:var(--color-fg,#f5f5f7);color:var(--color-ink,#000);box-shadow:none}.ds-chip input:focus-visible+span{outline:2px solid var(--color-link,#5eb0ff);outline-offset:2px}"
+    },
+    {
+      "name": "Campo de texto",
+      "kind": "input",
+      "refersTo": "input",
+      "description": "Campo sobre Grafito Medio; el aro pasa a 2px azul en foco y rojo si es inválido.",
+      "html": "<label class=\"ds-field\"><span>Ciudad y provincia</span><input type=\"text\" placeholder=\"Ej.: Orán, Salta\"></label>",
+      "css": ".ds-field{display:flex;flex-direction:column;font:500 .875rem/1.4 \"Geist Variable\",ui-sans-serif,system-ui,sans-serif;color:var(--color-fg,#f5f5f7)}.ds-field input{margin-top:.5rem;min-height:3rem;padding:.75rem 1rem;border:0;border-radius:.75rem;background:var(--color-surface-2,#1a1a1d);color:var(--color-fg,#f5f5f7);font:400 1rem/1.5 \"Geist Variable\",ui-sans-serif,system-ui,sans-serif;box-shadow:inset 0 0 0 1px var(--color-line,rgb(255 255 255/.1));caret-color:var(--color-link,#5eb0ff);transition:box-shadow .2s}.ds-field input::placeholder{color:var(--color-dim,#86868b)}.ds-field input:hover{box-shadow:inset 0 0 0 1px var(--color-line-strong,rgb(255 255 255/.18))}.ds-field input:focus-visible{outline:none;box-shadow:inset 0 0 0 2px var(--color-link,#5eb0ff)}.ds-field input[aria-invalid=true]{box-shadow:inset 0 0 0 2px var(--color-error,#ff6961)}"
+    },
+    {
+      "name": "Nav translúcida",
+      "kind": "nav",
+      "refersTo": null,
+      "description": "Barra fija de 3.5rem: logotipo tipográfico, links grises y píldora compacta de WhatsApp.",
+      "html": "<nav class=\"ds-nav\"><span class=\"ds-nav-mark\"><b>black</b> <span>salta</span></span><ul><li><a href=\"#\">Productos</a></li><li><a href=\"#\">Locales</a></li><li><a href=\"#\">Mayoristas</a></li></ul><a class=\"ds-nav-cta\" href=\"#\">WhatsApp</a></nav>",
+      "css": ".ds-nav{display:flex;align-items:center;justify-content:space-between;gap:1.5rem;height:3.5rem;padding:0 1.25rem;background:rgb(0 0 0/.72);backdrop-filter:saturate(180%) blur(20px);-webkit-backdrop-filter:saturate(180%) blur(20px);border-bottom:1px solid var(--color-line,rgb(255 255 255/.1));font-family:\"Geist Variable\",ui-sans-serif,system-ui,sans-serif}.ds-nav-mark{font-size:1.0625rem;color:var(--color-fg,#f5f5f7)}.ds-nav-mark b{font-weight:700;letter-spacing:-.04em}.ds-nav-mark span{color:var(--color-mute,#a1a1a6);letter-spacing:-.01em}.ds-nav ul{display:flex;gap:2rem;margin:0;padding:0;list-style:none;font-size:.875rem}.ds-nav ul a{color:var(--color-mute,#a1a1a6);text-decoration:none;transition:color .2s}.ds-nav ul a:hover{color:var(--color-fg,#f5f5f7)}.ds-nav-cta{display:inline-flex;align-items:center;min-height:2.25rem;padding:0 1rem;border-radius:999px;background:var(--color-fg,#f5f5f7);color:var(--color-ink,#000);font-size:.875rem;font-weight:500;text-decoration:none}.ds-nav a:focus-visible{outline:2px solid var(--color-link,#5eb0ff);outline-offset:3px;border-radius:6px}"
+    },
+    {
+      "name": "Mosaico de categoría",
+      "kind": "card",
+      "refersTo": "card-tile",
+      "description": "Foto graduada sobre Grafito Medio, nombre y \"Consultar\" en azul; todo el mosaico es un enlace a WhatsApp.",
+      "html": "<a class=\"ds-tile\" href=\"#\"><span class=\"ds-tile-media\"><span class=\"ds-tile-badge\">Más vendido</span></span><span class=\"ds-tile-body\"><span><b>Smartwatch</b><small>Notificaciones, GPS y salud.</small></span><em>Consultar →</em></span></a>",
+      "css": ".ds-tile{display:flex;flex-direction:column;width:20rem;overflow:hidden;border-radius:1rem;background:var(--color-surface-2,#1a1a1d);color:var(--color-fg,#f5f5f7);text-decoration:none;font-family:\"Geist Variable\",ui-sans-serif,system-ui,sans-serif}.ds-tile-media{position:relative;aspect-ratio:4/3;background:radial-gradient(circle at 50% 45%,#3a3a3d,#000 70%);filter:saturate(.6) brightness(.82) contrast(1.08);transition:transform 1.2s cubic-bezier(.16,1,.3,1),filter .6s cubic-bezier(.16,1,.3,1)}.ds-tile:hover .ds-tile-media{transform:scale(1.035);filter:saturate(.9) brightness(.92) contrast(1.05)}.ds-tile-badge{position:absolute;left:1rem;top:1rem;padding:.25rem .75rem;border-radius:999px;background:var(--color-fg,#f5f5f7);color:var(--color-ink,#000);font-size:.75rem;font-weight:500}.ds-tile-body{display:flex;align-items:flex-end;justify-content:space-between;gap:1rem;padding:1.25rem}.ds-tile-body b{display:block;font-size:1.25rem;font-weight:600;letter-spacing:-.02em}.ds-tile-body small{display:block;margin-top:.25rem;font-size:.9375rem;color:var(--color-mute,#a1a1a6)}.ds-tile-body em{font-style:normal;font-size:.9375rem;font-weight:500;color:var(--color-link,#5eb0ff);white-space:nowrap}.ds-tile:focus-visible{outline:2px solid var(--color-link,#5eb0ff);outline-offset:3px}"
+    },
+    {
+      "name": "Estado en vivo",
+      "kind": "custom",
+      "refersTo": null,
+      "description": "Punto de estado + texto, calculado con la hora de Salta. El color nunca va solo.",
+      "html": "<p class=\"ds-status\" data-state=\"open\"><span class=\"ds-dot\"></span>Abierto ahora en La Florida 219</p><p class=\"ds-status\" data-state=\"closed\"><span class=\"ds-dot\"></span>Cerrado · abre a las 17</p>",
+      "css": ".ds-status{display:inline-flex;align-items:center;gap:.5rem;margin:0 1.5rem .5rem 0;font:400 .875rem/1.4 \"Geist Variable\",ui-sans-serif,system-ui,sans-serif;color:var(--color-mute,#a1a1a6)}.ds-dot{width:.5rem;height:.5rem;flex:none;border-radius:999px;background:var(--color-dim,#86868b)}[data-state=open] .ds-dot{background:var(--color-open,#32d74b)}[data-state=closed] .ds-dot{background:var(--color-closed,#ff9f0a)}"
+    },
+    {
+      "name": "Titular en dos voces",
+      "kind": "custom",
+      "refersTo": "typography.headline",
+      "description": "Display apretado: afirmación en blanco, réplica en gris.",
+      "html": "<h2 class=\"ds-display\">Tecnología importada.<br><span>Atendida por personas.</span></h2>",
+      "css": ".ds-display{margin:0;font:650 clamp(2.25rem,5vw,3.75rem)/1.02 \"Geist Variable\",ui-sans-serif,system-ui,sans-serif;letter-spacing:-.035em;color:var(--color-fg,#f5f5f7);text-wrap:balance}.ds-display span{color:var(--color-mute,#a1a1a6)}"
+    }
+  ],
+  "narrative": {
+    "northStar": "La vidriera en negro",
+    "overview": "Black Salta es una vidriera de la peatonal vista de noche: el fondo desaparece, el producto fotografiado queda iluminado y el texto habla poco y en grande. La terminación de referencia es la de una página Pro de Apple: negro absoluto, una sola idea por pantalla, titulares gigantes y apretados, y botones en píldora blanca que son la única superficie clara de la página. Debajo de esa sobriedad, la página es un mostrador: cada sección termina en un WhatsApp concreto y cada local dice si está abierto ahora mismo.\n\nLa densidad es baja y el ritmo vertical es amplio (secciones de 6rem en mobile y 9rem en escritorio), separadas por filetes de 1px casi invisibles en lugar de cambios de color. La profundidad viene de la luz de la fotografía y de dos escalones de superficie apenas más claros que el negro, no de sombras. El color de marca no existe como tal: el acento es funcional (verde \"abierto\", ámbar \"cerrado\", azul claro para enlaces y foco).\n\nEl sistema rechaza el template IA de grafito: blobs de gradiente, marquee, fila de métricas y grilla de íconos con titulitos. La fotografía actual es stock provisorio y se normaliza con una gradación común hasta que lleguen las fotos propias.",
+    "keyCharacteristics": [
+      "Negro #000 de fondo, texto casi blanco y un gris secundario que hace de \"segunda voz\" en los titulares.",
+      "Geist Variable autoalojada, display a 650 de peso con tracking -0.035em; sin eyebrows ni kickers.",
+      "Píldora blanca como única acción primaria; ghost con aro de 1px como secundaria.",
+      "Estado en vivo (punto de color + texto) calculado con la hora de Salta.",
+      "Fotografía de producto sobre negro, desaturada, que entra con escala o se abre con clip-path al hacer scroll."
+    ],
+    "rules": [
+      {
+        "name": "The Dos Voces Rule",
+        "body": "Los titulares se escriben en dos tiempos: la afirmación en Blanco Vitrina y la réplica en Gris Segunda Voz (\"Tecnología importada. / Atendida por personas.\"). El contraste lo hace el gris, nunca un color.",
+        "section": "colors"
+      },
+      {
+        "name": "The Acento Funcional Rule",
+        "body": "Verde, ámbar, azul y rojo solo aparecen para decir algo (estado, enlace, foco, error). Si un color no comunica un estado, no va.",
+        "section": "colors"
+      },
+      {
+        "name": "The Sin Eyebrow Rule",
+        "body": "Ningún titular lleva una línea chica encima. La marca la lleva el logotipo de la nav; la sección se nombra con su titular.",
+        "section": "typography"
+      },
+      {
+        "name": "The Tracking Negativo Rule",
+        "body": "Cuanto más grande, más apretado: -0.01em en botones, -0.02em en títulos, -0.035em en display, -0.05em en numerales.",
+        "section": "typography"
+      },
+      {
+        "name": "The Plano Por Defecto Rule",
+        "body": "Ninguna tarjeta, panel o mosaico lleva sombra. Si algo necesita separarse, sube un escalón de superficie o lleva un filete de 1px.",
+        "section": "elevation"
+      }
+    ],
+    "dos": [
+      "**Do** cerrar cada sección con una acción concreta, normalmente la píldora blanca de WhatsApp al local correcto.",
+      "**Do** escribir titulares en dos voces: afirmación en Blanco Vitrina, réplica en Gris Segunda Voz.",
+      "**Do** separar secciones y filas con filetes de 1px (`line`) antes que con tarjetas o cambios de fondo.",
+      "**Do** mostrar el producto fotografiado sobre negro y aplicar la gradación común a las fotos provisorias para unificar su temperatura.",
+      "**Do** usar ease-out-expo (`cubic-bezier(0.16, 1, 0.3, 1)`) para toda transición y respetar `prefers-reduced-motion` (los efectos de scroll quedan en su estado final).",
+      "**Do** mantener objetivos táctiles de al menos 44px y el anillo de foco azul de 2px."
+    ],
+    "donts": [
+      "**Don't** poner eyebrows, kickers ni líneas chicas sobre los titulares.",
+      "**Don't** usar blobs o fondos de gradiente decorativos, marquees, filas de métricas ni grillas de íconos con titulitos.",
+      "**Don't** dar sombra a tarjetas, paneles o mosaicos; la única sombra es la de elementos fijos flotantes.",
+      "**Don't** usar verde, ámbar, azul o rojo como color de marca o decoración; son estados.",
+      "**Don't** introducir una segunda familia tipográfica ni una fuente de sistema como display.",
+      "**Don't** comunicar el estado de un local solo con el color del punto."
+    ]
+  }
+}

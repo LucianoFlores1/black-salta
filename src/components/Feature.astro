@@ -1,0 +1,74 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import smartwatch from '../assets/photos/smartwatch.jpg';
+import { MAIN_WHATSAPP, waLink } from '../data/site';
+
+const wa = waLink(MAIN_WHATSAPP, 'Hola Black, quiero consultar por smartwatch.');
+---
+
+<section class="feature border-t border-line pt-24 md:pt-36" aria-labelledby="feature-title" data-feature>
+  <div class="wrap text-center">
+    <h2 id="feature-title" class="display text-[clamp(2.5rem,6.4vw,5rem)]">
+      Smartwatch.<br /><span class="text-mute">El más vendido <span class="whitespace-nowrap">de Black.</span></span>
+    </h2>
+    <p class="mx-auto mt-6 max-w-[34rem] text-lg leading-relaxed text-mute">
+      Notificaciones, GPS y monitoreo de salud en la muñeca. Vení a probarlo en la peatonal o consultá modelos por
+      WhatsApp.
+    </p>
+    <a href={wa} target="_blank" rel="noopener" class="link mt-6 text-lg">
+      Consultar modelos <Icon name="arrow-right" size={18} />
+    </a>
+  </div>
+
+  <div class="feature-media mt-14 md:mt-20">
+    <Image
+      src={smartwatch}
+      alt="Reloj inteligente negro en la muñeca, con gotas de lluvia sobre la manga"
+      widths={[640, 1024, 1600]}
+      sizes="100vw"
+      class="aspect-[4/5] w-full object-cover object-[50%_45%] md:aspect-[21/9] md:object-[50%_42%]"
+    />
+  </div>
+</section>
+
+<style>
+  .feature-media {
+    --reveal: 1;
+    overflow: hidden;
+    clip-path: inset(0 calc(var(--reveal) * 9%) round calc(var(--reveal) * 28px));
+    will-change: clip-path;
+  }
+  .feature-media img {
+    filter: saturate(0.65) brightness(0.85) contrast(1.08);
+    transform: scale(calc(1 + var(--reveal) * 0.08));
+    transform-origin: 50% 40%;
+    will-change: transform;
+  }
+</style>
+
+<script>
+  const section = document.querySelector<HTMLElement>('[data-feature]');
+  const media = section?.querySelector<HTMLElement>('.feature-media');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (media && !reduce) {
+    let frame = 0;
+    const paint = () => {
+      frame = 0;
+      const rect = media.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // 1 cuando la foto asoma por abajo, 0 cuando su borde superior llega al tercio superior.
+      const progress = Math.min(1, Math.max(0, (rect.top - vh * 0.2) / (vh * 0.7)));
+      media.style.setProperty('--reveal', progress.toFixed(3));
+    };
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(paint);
+    };
+    paint();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+  } else if (media) {
+    media.style.setProperty('--reveal', '0');
+  }
+</script>

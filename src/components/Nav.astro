@@ -1,0 +1,121 @@
+---
+import Icon from './Icon.astro';
+import Wordmark from './Wordmark.astro';
+import { NAV, MAIN_WHATSAPP, waLink } from '../data/site';
+
+const wa = waLink(MAIN_WHATSAPP, 'Hola Black, quiero hacer una consulta.');
+---
+
+<header data-nav class="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-colors duration-300">
+  <div class="nav-bg absolute inset-0 -z-10 opacity-0 transition-opacity duration-300"></div>
+  <nav class="wrap flex h-14 items-center justify-between gap-6" aria-label="Principal">
+    <a href="#inicio" class="-ml-1 rounded-md px-1 py-2" aria-label="Black Salta, ir al inicio">
+      <Wordmark />
+    </a>
+
+    <ul class="hidden items-center gap-8 text-sm text-mute md:flex">
+      {
+        NAV.map((item) => (
+          <li>
+            <a href={item.href} class="py-2 transition-colors hover:text-fg">
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <div class="flex items-center gap-2">
+      <a href={wa} class="btn btn-primary !min-h-9 !px-4 text-sm" target="_blank" rel="noopener">
+        <Icon name="whatsapp" size={16} />
+        <span>WhatsApp</span>
+      </a>
+      <button
+        type="button"
+        class="-mr-2 grid size-11 place-items-center rounded-full text-fg md:hidden"
+        aria-expanded="false"
+        aria-controls="menu-movil"
+        data-menu-toggle
+      >
+        <span class="sr-only" data-menu-label>Abrir menú</span>
+        <Icon name="menu" size={22} class="menu-open" />
+        <Icon name="close" size={22} class="menu-close hidden" />
+      </button>
+    </div>
+  </nav>
+
+  <div id="menu-movil" class="mobile-menu md:hidden" hidden>
+    <ul class="wrap flex flex-col pb-8 pt-2">
+      {
+        NAV.map((item) => (
+          <li>
+            <a href={item.href} class="flex min-h-14 items-center border-b border-line text-2xl font-medium tracking-tight" data-menu-link>
+              {item.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </div>
+</header>
+
+<style>
+  .nav-bg {
+    background: rgb(0 0 0 / 0.72);
+    backdrop-filter: saturate(180%) blur(20px);
+    -webkit-backdrop-filter: saturate(180%) blur(20px);
+  }
+  [data-nav][data-scrolled] {
+    border-color: var(--color-line);
+  }
+  [data-nav][data-scrolled] .nav-bg,
+  [data-nav][data-open] .nav-bg {
+    opacity: 1;
+  }
+  [data-nav][data-open] {
+    bottom: 0;
+  }
+  [data-nav][data-open] .nav-bg {
+    background: rgb(0 0 0 / 0.94);
+  }
+  .mobile-menu:not([hidden]) {
+    animation: menu-in 0.35s var(--ease-out-expo);
+  }
+  @keyframes menu-in {
+    from {
+      opacity: 0;
+      transform: translateY(-8px);
+    }
+  }
+</style>
+
+<script>
+  const nav = document.querySelector<HTMLElement>('[data-nav]')!;
+  const toggle = nav.querySelector<HTMLButtonElement>('[data-menu-toggle]')!;
+  const menu = nav.querySelector<HTMLElement>('#menu-movil')!;
+  const label = nav.querySelector<HTMLElement>('[data-menu-label]')!;
+
+  const onScroll = () => nav.toggleAttribute('data-scrolled', window.scrollY > 8);
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  function setOpen(open: boolean) {
+    nav.toggleAttribute('data-open', open);
+    menu.hidden = !open;
+    toggle.setAttribute('aria-expanded', String(open));
+    label.textContent = open ? 'Cerrar menú' : 'Abrir menú';
+    toggle.querySelector('.menu-open')?.classList.toggle('hidden', open);
+    toggle.querySelector('.menu-close')?.classList.toggle('hidden', !open);
+    document.documentElement.style.overflow = open ? 'hidden' : '';
+  }
+
+  toggle.addEventListener('click', () => setOpen(menu.hidden));
+  menu.querySelectorAll('[data-menu-link]').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && !menu.hidden) {
+      setOpen(false);
+      toggle.focus();
+    }
+  });
+  window.matchMedia('(min-width: 768px)').addEventListener('change', (e) => e.matches && setOpen(false));
+</script>

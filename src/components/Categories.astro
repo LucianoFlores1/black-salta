@@ -1,0 +1,92 @@
+---
+import { Image } from 'astro:assets';
+import Icon from './Icon.astro';
+import { CATEGORIES, MAIN_WHATSAPP, SOCIALS, waLink } from '../data/site';
+
+/** Composición del mosaico en escritorio (grilla de 6 columnas). */
+const layout: Record<string, string> = {
+  smartwatch: 'lg:col-span-3 lg:row-span-2',
+  auriculares: 'lg:col-span-3',
+  tvbox: 'lg:col-span-3',
+  parlantes: 'lg:col-span-2',
+  proyectores: 'lg:col-span-2',
+  'luces-led': 'lg:col-span-2',
+  cables: 'lg:col-span-3',
+  hogar: 'lg:col-span-3',
+};
+
+const instagram = SOCIALS[0];
+---
+
+<section id="productos" class="pb-24 pt-10 md:pb-36 md:pt-12">
+  <div class="wrap">
+    <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
+      <h2 class="display max-w-[16ch] text-[clamp(2.25rem,5vw,3.75rem)]">Lo que buscás, en un solo lugar.</h2>
+      <p class="max-w-[26rem] text-lg leading-relaxed text-mute">
+        Consultá stock y precio por WhatsApp. Te responde una persona del local, no un bot.
+      </p>
+    </div>
+
+    <ul class="mt-12 grid gap-3 md:mt-16 md:grid-cols-2 lg:auto-rows-[22rem] lg:grid-cols-6">
+      {
+        CATEGORIES.map((cat, i) => (
+          <li class={`${layout[cat.id] ?? 'lg:col-span-2'} ${i === 0 ? 'md:col-span-2' : ''}`}>
+            <a
+              href={waLink(MAIN_WHATSAPP, `Hola Black, quiero consultar por ${cat.name.toLowerCase()}.`)}
+              target="_blank"
+              rel="noopener"
+              class="tile group flex h-full flex-col overflow-hidden rounded-2xl bg-surface-2"
+            >
+              <span class="relative block aspect-[4/3] overflow-hidden lg:aspect-auto lg:min-h-0 lg:flex-1">
+                <Image
+                  src={cat.image}
+                  alt={cat.alt}
+                  widths={[480, 800, 1200]}
+                  sizes={i === 0 ? '(min-width: 1024px) 600px, 100vw' : '(min-width: 1024px) 600px, (min-width: 768px) 50vw, 100vw'}
+                  class="tile-img absolute inset-0 size-full object-cover"
+                  style={cat.focus ? `object-position: ${cat.focus}` : undefined}
+                />
+                {cat.badge && (
+                  <span class="absolute left-4 top-4 rounded-full bg-fg px-3 py-1 text-xs font-medium text-ink">{cat.badge}</span>
+                )}
+              </span>
+              <span class="flex items-end justify-between gap-4 p-5 md:p-6">
+                <span>
+                  <span class="block text-xl font-semibold tracking-[-0.02em] md:text-2xl">{cat.name}</span>
+                  <span class="mt-1 block max-w-[34ch] text-[0.9375rem] text-mute">{cat.blurb}</span>
+                </span>
+                <span class="inline-flex flex-none items-center gap-1 text-[0.9375rem] font-medium text-link">
+                  Consultar
+                  <Icon name="arrow-right" size={16} class="transition-transform duration-300 group-hover:translate-x-0.5" />
+                </span>
+              </span>
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+
+    <p class="mt-8 text-mute">
+      Ingresan productos nuevos todas las semanas.
+      <a href={instagram.href} class="link" target="_blank" rel="noopener">
+        Miralos en Instagram <Icon name="arrow-up-right" size={15} />
+      </a>
+    </p>
+  </div>
+</section>
+
+<style>
+  /* Gradación común: unifica la temperatura de las fotos provisorias sobre el negro. */
+  .tile-img {
+    filter: saturate(0.6) brightness(0.82) contrast(1.08);
+    transition:
+      transform 1.2s var(--ease-out-expo),
+      filter 0.6s var(--ease-out-expo);
+  }
+  @media (hover: hover) {
+    .tile:hover .tile-img {
+      transform: scale(1.035);
+      filter: saturate(0.9) brightness(0.92) contrast(1.05);
+    }
+  }
+</style>

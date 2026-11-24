@@ -1,0 +1,59 @@
+---
+import Wordmark from './Wordmark.astro';
+import { NAV, STORES } from '../data/site';
+
+const year = new Date().getFullYear();
+---
+
+<footer class="border-t border-line bg-surface pb-28 pt-16 text-sm md:pb-12">
+  <div class="wrap">
+    <div class="grid gap-12 md:grid-cols-[1.4fr_1fr_1.6fr]">
+      <div>
+        <Wordmark class="!text-xl" />
+        <p class="mt-4 max-w-[28ch] leading-relaxed text-mute">
+          Electrónica importada y artículos para el hogar. Salta, Argentina, desde hace más de 20 años.
+        </p>
+      </div>
+
+      <nav aria-label="Secciones">
+        <p class="font-medium text-fg">Secciones</p>
+        <ul class="mt-4 space-y-3 text-mute">
+          {
+            NAV.map((item) => (
+              <li>
+                <a href={item.href} class="transition-colors hover:text-fg">
+                  {item.label}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+
+      <div>
+        <p class="font-medium text-fg">Locales</p>
+        <ul class="mt-4 space-y-4 text-mute">
+          {
+            STORES.map((store) => (
+              <li>
+                <span class="text-fg">{store.street}</span>
+                {store.id === 'mendoza-710' && ' · Pos venta'}
+                <br />
+                {store.hoursText.join(' · ')}
+                <br />
+                <a href={`tel:+${store.phone}`} class="tabular-nums transition-colors hover:text-fg">
+                  {store.phoneDisplay}
+                </a>
+              </li>
+            ))
+          }
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-14 flex flex-col gap-3 border-t border-line pt-6 text-dim sm:flex-row sm:justify-between">
+      <p>© {year} Black Salta. Todos los derechos reservados.</p>
+      <p>Precios y stock sujetos a disponibilidad. Consultá por WhatsApp.</p>
+    </div>
+  </div>
+</footer>

@@ -1,0 +1,54 @@
+---
+import Icon from './Icon.astro';
+import { MAIN_WHATSAPP, waLink } from '../data/site';
+
+const wa = waLink(MAIN_WHATSAPP, 'Hola Black, quiero hacer una consulta.');
+---
+
+<div data-mobile-cta class="mobile-cta fixed inset-x-0 bottom-0 z-40 px-4 md:hidden" aria-hidden="true">
+  <a href={wa} target="_blank" rel="noopener" class="btn btn-primary w-full shadow-[0_8px_30px_rgb(0_0_0/0.6)]" tabindex="-1">
+    <Icon name="whatsapp" size={18} />
+    Escribinos por WhatsApp
+  </a>
+</div>
+
+<style>
+  .mobile-cta {
+    padding-bottom: max(1rem, env(safe-area-inset-bottom));
+    transform: translateY(120%);
+    transition: transform 0.5s var(--ease-out-expo);
+  }
+  .mobile-cta[data-visible] {
+    transform: translateY(0);
+  }
+</style>
+
+<script>
+  const bar = document.querySelector<HTMLElement>('[data-mobile-cta]')!;
+  const link = bar.querySelector('a')!;
+  const heroCta = document.querySelector('[data-hero-cta]');
+  const footer = document.querySelector('footer');
+
+  let pastHero = false;
+  let atFooter = false;
+
+  const sync = () => {
+    const visible = pastHero && !atFooter;
+    bar.toggleAttribute('data-visible', visible);
+    bar.setAttribute('aria-hidden', String(!visible));
+    link.tabIndex = visible ? 0 : -1;
+  };
+
+  if (heroCta) {
+    new IntersectionObserver(([entry]) => {
+      pastHero = !entry.isIntersecting && entry.boundingClientRect.top < 0;
+      sync();
+    }).observe(heroCta);
+  }
+  if (footer) {
+    new IntersectionObserver(([entry]) => {
+      atFooter = entry.isIntersecting;
+      sync();
+    }).observe(footer);
+  }
+</script>

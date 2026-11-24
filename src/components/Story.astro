@@ -1,0 +1,85 @@
+---
+const statement =
+  'Hace más de veinte años que traemos tecnología a la peatonal de Salta. Te atiende una persona que conoce lo que vende, y si algo falla, tenemos un local entero dedicado a resolverlo.';
+const words = statement.split(' ');
+
+const facts = [
+  {
+    title: 'Garantía real',
+    text: 'Cada compra tiene respaldo. Cambios y reclamos se resuelven en persona, en nuestro local de pos venta.',
+  },
+  {
+    title: 'Envíos a todo el país',
+    text: 'Coordinamos el envío desde Salta a cualquier provincia, rápido y con seguimiento.',
+  },
+  {
+    title: 'Atención de verdad',
+    text: 'Sin bots ni respuestas automáticas. Te asesoramos para que te lleves lo que necesitás.',
+  },
+] as const;
+---
+
+<section id="nosotros" class="border-t border-line py-24 md:py-40">
+  <div class="wrap">
+    <h2 class="sr-only">Por qué Black</h2>
+    <p
+      class="statement max-w-[24ch] text-[clamp(2rem,4.6vw,3.75rem)] font-semibold leading-[1.1] tracking-[-0.03em]"
+      data-statement
+    >
+      {words.map((w, i) => <span style={`--i:${i}`}>{w} </span>)}
+    </p>
+
+    <dl class="mt-20 border-t border-line md:mt-28">
+      {
+        facts.map((f) => (
+          <div class="grid gap-2 border-b border-line py-7 md:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] md:gap-10 md:py-9">
+            <dt class="text-[clamp(1.5rem,2.6vw,2rem)] font-semibold tracking-[-0.025em]">{f.title}</dt>
+            <dd class="max-w-[44ch] text-lg leading-relaxed text-mute md:pt-1.5">{f.text}</dd>
+          </div>
+        ))
+      }
+    </dl>
+  </div>
+</section>
+
+<style>
+  .statement span {
+    color: var(--color-fg);
+    transition: color 0.4s var(--ease-out-expo);
+  }
+  .statement[data-ready] span {
+    color: #3a3a3d;
+  }
+  .statement[data-ready] span[data-lit] {
+    color: var(--color-fg);
+  }
+</style>
+
+<script>
+  const el = document.querySelector<HTMLElement>('[data-statement]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  if (el && !reduce) {
+    const words = Array.from(el.querySelectorAll('span'));
+    el.setAttribute('data-ready', '');
+    let frame = 0;
+
+    const paint = () => {
+      frame = 0;
+      const rect = el.getBoundingClientRect();
+      const vh = window.innerHeight;
+      // Empieza a iluminarse cuando el párrafo entra por abajo y termina cerca del centro.
+      const progress = Math.min(1, Math.max(0, (vh * 0.85 - rect.top) / (rect.height + vh * 0.3)));
+      const lit = Math.round(progress * words.length);
+      words.forEach((w, i) => w.toggleAttribute('data-lit', i < lit));
+    };
+
+    const onScroll = () => {
+      if (!frame) frame = requestAnimationFrame(paint);
+    };
+
+    paint();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+  }
+</script>
