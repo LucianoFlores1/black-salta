@@ -29,7 +29,7 @@ const facts = [
       {words.map((w, i) => <span style={`--i:${i}`}>{w} </span>)}
     </p>
 
-    <dl class="mt-20 border-t border-line md:mt-28">
+    <dl class="mt-20 border-t border-line md:mt-28" data-reveal-stagger>
       {
         facts.map((f) => (
           <div class="grid gap-2 border-b border-line py-7 md:grid-cols-[minmax(0,1fr)_minmax(0,1.3fr)] md:gap-10 md:py-9">

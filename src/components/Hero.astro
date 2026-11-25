@@ -9,16 +9,16 @@ const wa = waLink(MAIN_WHATSAPP, 'Hola Black, quiero hacer una consulta.');
 
 <section id="inicio" class="relative overflow-hidden pt-28 md:pt-36">
   <div class="wrap relative z-10 text-center">
-    <h1 class="display mx-auto text-[clamp(2.75rem,7.2vw,5.5rem)]">
+    <h1 class="display mx-auto text-[clamp(2.75rem,7.2vw,5.5rem)]" data-reveal="blur" style="--d:60">
       Tecnología importada.<br class="hidden md:block" />
       <span class="text-mute">Atendida por personas.</span>
     </h1>
-    <p class="mx-auto mt-6 max-w-[40rem] text-lg leading-relaxed text-mute md:text-xl">
+    <p class="mx-auto mt-6 max-w-[40rem] text-lg leading-relaxed text-mute md:text-xl" data-reveal style="--d:200">
       Smartwatch, auriculares, TV Box y todo para tu casa. Más de 20 años en la peatonal de Salta, con garantía real y
       envíos a todo el país.
     </p>
 
-    <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4">
+    <div class="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row sm:gap-4" data-reveal style="--d:320">
       <a href={wa} class="btn btn-primary w-full sm:w-auto" target="_blank" rel="noopener" data-hero-cta>
         <Icon name="whatsapp" size={18} />
         Escribinos por WhatsApp
@@ -28,13 +28,13 @@ const wa = waLink(MAIN_WHATSAPP, 'Hola Black, quiero hacer una consulta.');
       </a>
     </div>
 
-    <p class="mt-7 inline-flex items-center gap-2 text-sm text-mute" data-hero-status data-state="unknown" aria-live="polite">
+    <p class="mt-7 inline-flex items-center gap-2 text-sm text-mute" data-reveal="fade" style="--d:520" data-hero-status data-state="unknown" aria-live="polite">
       <span class="status-dot"></span>
       <span data-hero-status-text>Tres locales en el centro de Salta</span>
     </p>
   </div>
 
-  <div class="hero-media relative mx-auto mt-10 w-full max-w-[1200px] md:mt-14 md:px-10">
+  <div data-hero-media class="hero-media relative mx-auto mt-10 w-full max-w-[1200px] md:mt-14 md:px-10">
     <Image
       src={hero}
       alt="Auriculares inalámbricos negros apoyados en un soporte, sobre fondo negro"
@@ -50,6 +50,7 @@ const wa = waLink(MAIN_WHATSAPP, 'Hola Black, quiero hacer una consulta.');
 <style>
   .hero-media {
     mask-image: linear-gradient(to bottom, #000 72%, transparent 100%);
+    will-change: transform;
   }
   .hero-img {
     animation: hero-settle 1.6s var(--ease-out-expo) both;
@@ -93,4 +94,26 @@ const wa = waLink(MAIN_WHATSAPP, 'Hola Black, quiero hacer una consulta.');
 
   update();
   setInterval(update, 60_000);
+
+  // Parallax: la foto se queda un poco atrás y se oscurece al irse, solo mientras el hero está a la vista.
+  const media = document.querySelector<HTMLElement>('[data-hero-media]');
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (media && !reduce) {
+    let frame = 0;
+    let visible = true;
+    const paint = () => {
+      frame = 0;
+      const y = Math.min(window.scrollY, window.innerHeight * 1.2);
+      media.style.transform = `translate3d(0, ${(y * 0.18).toFixed(1)}px, 0)`;
+      media.style.opacity = String(Math.max(0.25, 1 - y / (window.innerHeight * 1.6)));
+    };
+    new IntersectionObserver(([entry]) => (visible = entry.isIntersecting)).observe(media);
+    window.addEventListener(
+      'scroll',
+      () => {
+        if (visible && !frame) frame = requestAnimationFrame(paint);
+      },
+      { passive: true },
+    );
+  }
 </script>

@@ -12,12 +12,12 @@ const perks = [
 <section id="mayoristas" class="border-t border-line py-24 md:py-36">
   <div class="wrap grid gap-14 lg:grid-cols-[1fr_1.15fr] lg:gap-20">
     <div>
-      <h2 class="display max-w-[12ch] text-[clamp(2.25rem,5vw,3.75rem)]">¿Tenés un comercio? Comprá por mayor.</h2>
-      <p class="mt-6 max-w-[30rem] text-lg leading-relaxed text-mute">
+      <h2 class="display max-w-[12ch] text-[clamp(2.25rem,5vw,3.75rem)]" data-reveal>¿Tenés un comercio? Comprá por mayor.</h2>
+      <p class="mt-6 max-w-[30rem] text-lg leading-relaxed text-mute" data-reveal style="--d:120">
         Dejanos tus datos y te escribimos con la lista de precios mayoristas. El formulario arma el mensaje y lo envía por
         WhatsApp.
       </p>
-      <ul class="mt-10 space-y-4">
+      <ul class="mt-10 space-y-4" data-reveal-stagger style="--d:200">
         {
           perks.map((perk) => (
             <li class="flex gap-3 text-fg">
@@ -29,7 +29,7 @@ const perks = [
       </ul>
     </div>
 
-    <div class="-mx-2 rounded-2xl bg-surface p-5 sm:mx-0 sm:p-9">
+    <div class="-mx-2 rounded-2xl bg-surface p-5 sm:mx-0 sm:p-9" data-reveal style="--d:120">
       <form data-wholesale novalidate class="grid gap-5 sm:grid-cols-2">
         <div class="field">
           <label for="m-nombre">Nombre y apellido</label>
@@ -101,8 +101,8 @@ const perks = [
       </form>
 
       <div data-wholesale-done hidden class="py-6 text-center" tabindex="-1">
-        <span class="mx-auto grid size-12 place-items-center rounded-full bg-open/15 text-open">
-          <Icon name="check" size={24} />
+        <span class="done-badge mx-auto grid size-12 place-items-center rounded-full bg-open/15 text-open">
+          <Icon name="check" size={24} class="done-check" />
         </span>
         <p class="mt-5 text-2xl font-semibold tracking-[-0.02em]">Tu consulta está lista.</p>
         <p class="mx-auto mt-2 max-w-[28rem] text-mute">
@@ -184,9 +184,16 @@ const perks = [
     box-shadow: inset 0 0 0 1px var(--color-line-strong);
     cursor: pointer;
     user-select: none;
-    transition: background-color 0.2s, color 0.2s, box-shadow 0.2s;
+    transition:
+      background-color 0.2s,
+      color 0.2s,
+      box-shadow 0.2s,
+      transform 0.16s var(--ease-out-expo);
   }
-  @media (hover: hover) {
+  .chip:active span {
+    transform: scale(0.95);
+  }
+  @media (hover: hover) and (pointer: fine) {
     .chip:hover span {
       color: var(--color-fg);
     }
@@ -199,6 +206,48 @@ const perks = [
   .chip input:focus-visible + span {
     outline: 2px solid var(--color-link);
     outline-offset: 2px;
+  }
+  .error:not(:empty) {
+    animation: error-in 0.3s var(--ease-out-expo);
+  }
+  @keyframes error-in {
+    from {
+      opacity: 0;
+      transform: translateY(-4px);
+    }
+  }
+
+  /* Confirmación: el panel entra, el círculo aparece y el check se dibuja. */
+  [data-wholesale][data-returning]:not([hidden]),
+  [data-wholesale-done]:not([hidden]) {
+    animation: panel-in 0.5s var(--ease-out-expo);
+  }
+  @keyframes panel-in {
+    from {
+      opacity: 0;
+      transform: translateY(10px);
+    }
+  }
+  [data-wholesale-done]:not([hidden]) .done-badge {
+    animation: badge-in 0.6s var(--ease-out-expo) 0.08s both;
+  }
+  @keyframes badge-in {
+    from {
+      opacity: 0;
+      transform: scale(0.6);
+    }
+  }
+  [data-wholesale-done]:not([hidden]) :global(.done-check path) {
+    stroke-dasharray: 24;
+    animation: check-draw 0.5s var(--ease-out-expo) 0.3s both;
+  }
+  @keyframes check-draw {
+    from {
+      stroke-dashoffset: 24;
+    }
+    to {
+      stroke-dashoffset: 0;
+    }
   }
 </style>
 
@@ -248,7 +297,14 @@ const perks = [
     });
 
     if (firstInvalid) {
-      (firstInvalid as HTMLInputElement).focus();
+      const input = firstInvalid as HTMLInputElement;
+      input.focus();
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+        input.animate(
+          [{ transform: 'translateX(0)' }, { transform: 'translateX(-6px)' }, { transform: 'translateX(5px)' }, { transform: 'translateX(-3px)' }, { transform: 'translateX(0)' }],
+          { duration: 360, easing: 'ease-out' },
+        );
+      }
       return;
     }
 
@@ -275,6 +331,7 @@ const perks = [
   reset.addEventListener('click', () => {
     done.hidden = true;
     form.hidden = false;
+    form.setAttribute('data-returning', '');
     form.querySelector<HTMLInputElement>('input')?.focus();
   });
 </script>

@@ -16,7 +16,16 @@ const wa = waLink(MAIN_WHATSAPP, 'Hola Black, quiero hacer una consulta.');
   .mobile-cta {
     padding-bottom: max(1rem, env(safe-area-inset-bottom));
     transform: translateY(120%);
-    transition: transform 0.5s var(--ease-out-expo);
+    transition: transform 0.4s var(--ease-drawer);
+  }
+  /* Un velo de negro detrás de la píldora para que el contenido no compita con ella. */
+  .mobile-cta::before {
+    content: '';
+    position: absolute;
+    inset: -1.5rem 0 0;
+    z-index: -1;
+    background: linear-gradient(to bottom, transparent, rgb(0 0 0 / 0.85) 60%);
+    pointer-events: none;
   }
   .mobile-cta[data-visible] {
     transform: translateY(0);
@@ -31,9 +40,11 @@ const wa = waLink(MAIN_WHATSAPP, 'Hola Black, quiero hacer una consulta.');
 
   let pastHero = false;
   let atFooter = false;
+  let typing = false;
 
   const sync = () => {
-    const visible = pastHero && !atFooter;
+    // Mientras se escribe en un campo, la barra se va para no tapar el teclado ni el formulario.
+    const visible = pastHero && !atFooter && !typing;
     bar.toggleAttribute('data-visible', visible);
     bar.setAttribute('aria-hidden', String(!visible));
     link.tabIndex = visible ? 0 : -1;
@@ -45,6 +56,22 @@ const wa = waLink(MAIN_WHATSAPP, 'Hola Black, quiero hacer una consulta.');
       sync();
     }).observe(heroCta);
   }
+  const isField = (el: EventTarget | null) =>
+    el instanceof HTMLTextAreaElement || (el instanceof HTMLInputElement && el.type !== 'checkbox');
+  document.addEventListener('focusin', (e) => {
+    if (isField(e.target)) {
+      typing = true;
+      sync();
+    }
+  });
+  document.addEventListener('focusout', (e) => {
+    if (isField(e.target)) {
+      typing = false;
+      // Esperamos a que el teclado se cierre antes de volver a mostrarla.
+      setTimeout(sync, 250);
+    }
+  });
+
   if (footer) {
     new IntersectionObserver(([entry]) => {
       atFooter = entry.isIntersecting;

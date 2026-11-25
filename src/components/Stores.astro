@@ -8,16 +8,16 @@ const posventaWa = waLink(POSVENTA.phone, 'Hola, tengo una consulta de garantía
 <section id="pos-venta" class="relative overflow-hidden border-t border-line bg-surface py-24 md:py-32">
   <div class="wrap grid gap-12 md:grid-cols-[1.2fr_1fr] md:items-end">
     <div>
-      <h2 class="display text-[clamp(2.25rem,5.4vw,4.25rem)]">
+      <h2 class="display text-[clamp(2.25rem,5.4vw,4.25rem)]" data-reveal="blur">
         ¿Algo no anda?<br /><span class="text-mute">Tiene dirección.</span>
       </h2>
-      <p class="mt-6 max-w-[34rem] text-lg leading-relaxed text-mute">
+      <p class="mt-6 max-w-[34rem] text-lg leading-relaxed text-mute" data-reveal style="--d:120">
         En Mendoza 710 tenemos un local dedicado solo a pos venta: cambios y garantía, de lunes a sábados de 9 a 21. Traé
         tu producto o escribinos antes y te decimos cómo seguir.
       </p>
     </div>
 
-    <div class="md:justify-self-end md:text-right">
+    <div class="md:justify-self-end md:text-right" data-reveal style="--d:200">
       <p class="hidden text-[clamp(4.5rem,12vw,8.5rem)] font-semibold leading-none tracking-[-0.05em] md:block" aria-hidden="true">710</p>
       <p class="inline-flex items-center gap-2 text-sm text-mute md:mt-3" data-store-status={POSVENTA.id} data-state="unknown">
         <span class="status-dot"></span>
@@ -40,13 +40,13 @@ const posventaWa = waLink(POSVENTA.phone, 'Hola, tengo una consulta de garantía
 <section id="locales" class="border-t border-line py-24 md:py-36">
   <div class="wrap">
     <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-      <h2 class="display max-w-[14ch] text-[clamp(2.25rem,5vw,3.75rem)]">Vení a verlo en persona.</h2>
-      <p class="max-w-[26rem] text-lg leading-relaxed text-mute">
+      <h2 class="display max-w-[14ch] text-[clamp(2.25rem,5vw,3.75rem)]" data-reveal>Vení a verlo en persona.</h2>
+      <p class="max-w-[26rem] text-lg leading-relaxed text-mute" data-reveal style="--d:120">
         Tres locales a pocas cuadras, en el centro de Salta. Cada uno con su propio WhatsApp.
       </p>
     </div>
 
-    <ul class="mt-14 border-t border-line md:mt-20">
+    <ul class="mt-14 border-t border-line md:mt-20" data-reveal-stagger>
       {
         STORES.map((store) => (
           <li class="grid grid-cols-[4.5rem_minmax(0,1fr)] gap-x-4 gap-y-5 border-b border-line py-8 md:grid-cols-[9rem_1fr_1fr_auto] md:items-start md:gap-x-10 md:py-11">

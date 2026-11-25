@@ -18,6 +18,7 @@
   --color-error: #ff6961;
 
   --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);
 }
 
 @layer base {
@@ -71,6 +72,10 @@
     scrollbar-width: thin;
   }
 
+  img {
+    -webkit-user-drag: none;
+  }
+
   @media (prefers-reduced-motion: reduce) {
     html {
       scroll-behavior: auto;
@@ -112,7 +117,11 @@
     font-size: 1rem;
     font-weight: 500;
     letter-spacing: -0.01em;
-    transition: background-color 0.2s, color 0.2s, transform 0.15s var(--ease-out-expo);
+    transition:
+      background-color 0.2s,
+      color 0.2s,
+      box-shadow 0.2s,
+      transform 0.16s var(--ease-out-expo);
     user-select: none;
   }
   .btn:active {
@@ -125,7 +134,7 @@
     background: var(--color-fg);
     color: var(--color-ink);
   }
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     .btn-primary:hover {
       background: #ffffff;
     }
@@ -134,10 +143,17 @@
     color: var(--color-fg);
     box-shadow: inset 0 0 0 1px var(--color-line-strong);
   }
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     .btn-ghost:hover {
       background: rgb(255 255 255 / 0.06);
+      box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.28);
     }
+  }
+  .btn-ghost:active {
+    background: rgb(255 255 255 / 0.08);
+  }
+  .btn svg {
+    transition: transform 0.3s var(--ease-out-expo);
   }
 
   .link {
@@ -154,16 +170,70 @@
   }
 
   .status-dot {
+    position: relative;
     width: 0.5rem;
     height: 0.5rem;
     border-radius: 999px;
     background: var(--color-dim);
     flex: none;
+    transition: background-color 0.4s;
   }
   [data-state="open"] .status-dot {
     background: var(--color-open);
   }
+  /* Latido suave: el local está abierto en este momento. */
+  [data-state="open"] .status-dot::after {
+    content: "";
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background: var(--color-open);
+    animation: status-pulse 2.4s var(--ease-out-expo) infinite;
+  }
+  @keyframes status-pulse {
+    0% {
+      transform: scale(1);
+      opacity: 0.55;
+    }
+    70%,
+    100% {
+      transform: scale(2.8);
+      opacity: 0;
+    }
+  }
   [data-state="closed"] .status-dot {
     background: var(--color-closed);
+  }
+}
+
+/*
+ * Revelado al hacer scroll. Solo se oculta si hay JS (clase .js en <html>),
+ * así el contenido nunca queda invisible. Con movimiento reducido, todo aparece en su lugar.
+ */
+@layer components {
+  @media (prefers-reduced-motion: no-preference) {
+    .js [data-reveal],
+    .js [data-reveal-stagger] > * {
+      transition:
+        opacity 0.9s var(--ease-out-expo),
+        transform 0.9s var(--ease-out-expo),
+        filter 0.9s var(--ease-out-expo);
+      transition-delay: calc(var(--d, 0) * 1ms);
+    }
+    .js [data-reveal-stagger] > * {
+      transition-delay: calc(var(--d, 0) * 1ms + var(--i, 0) * 70ms);
+    }
+    .js [data-reveal]:not(.is-in),
+    .js [data-reveal-stagger]:not(.is-in) > * {
+      opacity: 0;
+      transform: translateY(24px);
+    }
+    .js [data-reveal="fade"]:not(.is-in) {
+      transform: none;
+    }
+    .js [data-reveal="blur"]:not(.is-in) {
+      filter: blur(8px);
+      transform: translateY(16px);
+    }
   }
 }

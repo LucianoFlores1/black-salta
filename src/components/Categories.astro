@@ -21,8 +21,8 @@ const instagram = SOCIALS[0];
 <section id="productos" class="pb-24 pt-10 md:pb-36 md:pt-12">
   <div class="wrap">
     <div class="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
-      <h2 class="display max-w-[16ch] text-[clamp(2.25rem,5vw,3.75rem)]">Lo que buscás, en un solo lugar.</h2>
-      <p class="max-w-[26rem] text-lg leading-relaxed text-mute">
+      <h2 class="display max-w-[16ch] text-[clamp(2.25rem,5vw,3.75rem)]" data-reveal>Lo que buscás, en un solo lugar.</h2>
+      <p class="max-w-[26rem] text-lg leading-relaxed text-mute" data-reveal style="--d:120">
         Consultá stock y precio por WhatsApp. Te responde una persona del local, no un bot.
       </p>
     </div>
@@ -31,6 +31,7 @@ const instagram = SOCIALS[0];
     <ul
       class="rail -mx-5 mt-10 flex snap-x snap-mandatory gap-3 overflow-x-auto px-5 pb-1 md:mx-0 md:mt-16 md:grid md:snap-none md:grid-cols-2 md:overflow-visible md:px-0 md:pb-0 lg:auto-rows-[22rem] lg:grid-cols-6"
       data-rail
+      data-reveal-stagger
       aria-label="Categorías de productos"
     >
       {
@@ -71,11 +72,17 @@ const instagram = SOCIALS[0];
       }
     </ul>
 
-    <div class="mt-5 flex justify-center gap-1.5 md:hidden" aria-hidden="true" data-rail-dots>
-      {CATEGORIES.map((_, i) => <span class={`rail-dot ${i === 0 ? 'is-active' : ''}`} />)}
+    <div class="mt-3 flex justify-center md:hidden" aria-hidden="true" data-rail-dots>
+      {
+        CATEGORIES.map((_, i) => (
+          <button type="button" tabindex="-1" class="grid h-8 place-items-center px-[3px]" data-dot={i}>
+            <span class={`rail-dot ${i === 0 ? 'is-active' : ''}`} />
+          </button>
+        ))
+      }
     </div>
 
-    <p class="mt-8 text-mute">
+    <p class="mt-6 text-mute md:mt-8" data-reveal>
       Ingresan productos nuevos todas las semanas.
       <a href={instagram.href} class="link" target="_blank" rel="noopener">
         Miralos en Instagram <Icon name="arrow-up-right" size={15} />
@@ -86,6 +93,7 @@ const instagram = SOCIALS[0];
 
 <style>
   .rail {
+    scroll-behavior: smooth;
     scrollbar-width: none;
     scroll-padding-inline: 1.25rem;
     overscroll-behavior-x: contain;
@@ -118,7 +126,7 @@ const instagram = SOCIALS[0];
       transform 1.2s var(--ease-out-expo),
       filter 0.6s var(--ease-out-expo);
   }
-  @media (hover: hover) {
+  @media (hover: hover) and (pointer: fine) {
     .tile:hover .tile-img {
       transform: scale(1.035);
       filter: saturate(0.9) brightness(0.92) contrast(1.05);
@@ -129,6 +137,7 @@ const instagram = SOCIALS[0];
 <script>
   const rail = document.querySelector<HTMLElement>('[data-rail]');
   const dots = Array.from(document.querySelectorAll<HTMLElement>('[data-rail-dots] .rail-dot'));
+  const dotButtons = document.querySelectorAll<HTMLButtonElement>('[data-rail-dots] [data-dot]');
 
   if (rail && dots.length) {
     let frame = 0;
@@ -147,5 +156,13 @@ const instagram = SOCIALS[0];
     rail.addEventListener('scroll', () => {
       if (!frame) frame = requestAnimationFrame(sync);
     }, { passive: true });
+
+    // Tocar un punto lleva a esa tarjeta.
+    dotButtons.forEach((button) =>
+      button.addEventListener('click', () => {
+        const item = rail.children[Number(button.dataset.dot)] as HTMLElement | undefined;
+        if (item) rail.scrollTo({ left: item.offsetLeft - rail.offsetLeft - parseFloat(getComputedStyle(rail).paddingLeft) });
+      }),
+    );
   }
 </script>

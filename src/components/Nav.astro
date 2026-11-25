@@ -1,15 +1,51 @@
 ---
 import Icon from './Icon.astro';
 import Wordmark from './Wordmark.astro';
-import { NAV, MAIN_WHATSAPP, waLink } from '../data/site';
+import { NAV, SOCIALS, MAIN_WHATSAPP, waLink } from '../data/site';
 
 const wa = waLink(MAIN_WHATSAPP, 'Hola Black, quiero hacer una consulta.');
 ---
 
-<header data-nav class="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-colors duration-300">
-  <div class="nav-bg absolute inset-0 -z-10 opacity-0 transition-opacity duration-300"></div>
+<header data-nav class="nav fixed inset-x-0 top-0 z-50 border-b border-transparent">
+  <div class="nav-bg absolute inset-0 -z-10 opacity-0"></div>
+
+  <!-- Menú mobile: panel a pantalla completa debajo de la barra, siempre en el DOM para animar entrada y salida. -->
+  <div id="menu-movil" class="mobile-menu fixed inset-0 -z-10 flex flex-col md:hidden" inert data-menu>
+    <ul class="wrap flex flex-col pt-2">
+      {
+        NAV.map((item) => (
+          <li class="menu-item">
+            <a
+              href={item.href}
+              class="flex min-h-16 items-center justify-between border-b border-line text-[1.75rem] font-semibold tracking-[-0.025em]"
+              data-menu-link
+            >
+              {item.label}
+              <Icon name="arrow-right" size={20} class="text-dim" />
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+    <div class="wrap mt-auto pb-[max(1.5rem,env(safe-area-inset-bottom))]">
+      <div class="menu-item -ml-2.5 flex gap-1 pb-6 text-mute">
+        {
+          SOCIALS.map((s) => (
+            <a href={s.href} target="_blank" rel="noopener" class="grid size-11 place-items-center rounded-full transition-colors active:text-fg" aria-label={s.label}>
+              <Icon name={s.id} size={22} />
+            </a>
+          ))
+        }
+      </div>
+      <a href={wa} class="menu-item btn btn-primary w-full" target="_blank" rel="noopener">
+        <Icon name="whatsapp" size={18} />
+        Escribinos por WhatsApp
+      </a>
+    </div>
+  </div>
+
   <nav class="wrap flex h-14 items-center justify-between gap-6" aria-label="Principal">
-    <a href="#inicio" class="-ml-1 rounded-md px-1 py-2" aria-label="Black Salta, ir al inicio">
+    <a href="#inicio" class="-ml-1 rounded-md px-1 py-2" aria-label="Black Salta, ir al inicio" data-home>
       <Wordmark />
     </a>
 
@@ -17,7 +53,7 @@ const wa = waLink(MAIN_WHATSAPP, 'Hola Black, quiero hacer una consulta.');
       {
         NAV.map((item) => (
           <li>
-            <a href={item.href} class="py-2 transition-colors hover:text-fg">
+            <a href={item.href} class="nav-link relative py-2 transition-colors duration-200 hover:text-fg" data-nav-link>
               {item.label}
             </a>
           </li>
@@ -26,65 +62,158 @@ const wa = waLink(MAIN_WHATSAPP, 'Hola Black, quiero hacer una consulta.');
     </ul>
 
     <div class="flex items-center gap-2">
-      <a href={wa} class="btn btn-primary !min-h-9 !px-4 text-sm" target="_blank" rel="noopener">
+      <a href={wa} class="nav-wa btn btn-primary !min-h-9 !px-4 text-sm" target="_blank" rel="noopener">
         <Icon name="whatsapp" size={16} />
         <span>WhatsApp</span>
       </a>
       <button
         type="button"
-        class="-mr-2 grid size-11 place-items-center rounded-full text-fg md:hidden"
+        class="burger -mr-2 grid size-11 place-items-center rounded-full text-fg md:hidden"
         aria-expanded="false"
         aria-controls="menu-movil"
         data-menu-toggle
       >
         <span class="sr-only" data-menu-label>Abrir menú</span>
-        <Icon name="menu" size={22} class="menu-open" />
-        <Icon name="close" size={22} class="menu-close hidden" />
+        <span class="burger-lines" aria-hidden="true"><span></span><span></span></span>
       </button>
     </div>
   </nav>
-
-  <div id="menu-movil" class="mobile-menu md:hidden" hidden>
-    <ul class="wrap flex flex-col pb-8 pt-2">
-      {
-        NAV.map((item) => (
-          <li>
-            <a href={item.href} class="flex min-h-14 items-center border-b border-line text-2xl font-medium tracking-tight" data-menu-link>
-              {item.label}
-            </a>
-          </li>
-        ))
-      }
-    </ul>
-  </div>
 </header>
 
 <style>
+  .nav {
+    transition:
+      transform 0.45s var(--ease-out-expo),
+      border-color 0.3s;
+  }
+  /* Se esconde al bajar para dejar más pantalla al contenido; vuelve apenas subís. */
+  .nav[data-hidden]:not([data-open]) {
+    transform: translateY(-100%);
+  }
   .nav-bg {
     background: rgb(0 0 0 / 0.72);
     backdrop-filter: saturate(180%) blur(20px);
     -webkit-backdrop-filter: saturate(180%) blur(20px);
+    transition: opacity 0.3s;
   }
-  [data-nav][data-scrolled] {
+  [data-nav][data-scrolled]:not([data-open]) {
     border-color: var(--color-line);
   }
-  [data-nav][data-scrolled] .nav-bg,
-  [data-nav][data-open] .nav-bg {
+  [data-nav][data-scrolled] .nav-bg {
     opacity: 1;
   }
-  [data-nav][data-open] {
+  [data-nav][data-open] .nav-bg {
+    opacity: 0;
+  }
+
+  /* Sección activa: subrayado fino que aparece desde el centro. */
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: -0.15rem;
+    height: 1px;
+    background: currentColor;
+    transform: scaleX(0);
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+  .nav-link[aria-current='true'] {
+    color: var(--color-fg);
+  }
+  .nav-link[aria-current='true']::after {
+    transform: scaleX(1);
+  }
+
+  /* Hamburguesa: dos líneas que se cruzan en una X. */
+  .burger-lines {
+    position: relative;
+    display: block;
+    width: 1.25rem;
+    height: 0.75rem;
+  }
+  .burger-lines span {
+    position: absolute;
+    left: 0;
+    width: 100%;
+    height: 1.5px;
+    border-radius: 2px;
+    background: currentColor;
+    transition: transform 0.4s var(--ease-out-expo);
+  }
+  .burger-lines span:first-child {
+    top: 0;
+  }
+  .burger-lines span:last-child {
     bottom: 0;
   }
-  [data-nav][data-open] .nav-bg {
-    background: rgb(0 0 0 / 0.94);
+  [data-open] .burger-lines span:first-child {
+    transform: translateY(5.25px) rotate(45deg);
   }
-  .mobile-menu:not([hidden]) {
-    animation: menu-in 0.35s var(--ease-out-expo);
+  [data-open] .burger-lines span:last-child {
+    transform: translateY(-5.25px) rotate(-45deg);
   }
-  @keyframes menu-in {
-    from {
-      opacity: 0;
-      transform: translateY(-8px);
+  .burger:active .burger-lines {
+    transform: scale(0.9);
+  }
+  .burger-lines {
+    transition: transform 0.16s var(--ease-out-expo);
+  }
+
+  .mobile-menu {
+    height: 100dvh;
+    padding-top: 3.5rem;
+    background: rgb(0 0 0 / 0.96);
+    backdrop-filter: blur(24px);
+    -webkit-backdrop-filter: blur(24px);
+    opacity: 0;
+    visibility: hidden;
+    overscroll-behavior: contain;
+    transition:
+      opacity 0.25s ease,
+      visibility 0s linear 0.25s;
+  }
+  [data-open] .mobile-menu {
+    opacity: 1;
+    visibility: visible;
+    transition:
+      opacity 0.35s var(--ease-out-expo),
+      visibility 0s;
+  }
+  .menu-item {
+    opacity: 0;
+    transform: translateY(14px);
+    transition:
+      opacity 0.2s ease,
+      transform 0.2s ease;
+  }
+  [data-open] .menu-item {
+    opacity: 1;
+    transform: none;
+    transition:
+      opacity 0.5s var(--ease-out-expo),
+      transform 0.6s var(--ease-out-expo);
+    transition-delay: calc(60ms + var(--i, 0) * 45ms);
+  }
+  /* La píldora del menú conserva su feedback al tocar. */
+  [data-open] .menu-item.btn:active {
+    transform: scale(0.97);
+    transition-delay: 0s;
+  }
+  /* Con el menú abierto la píldora de la barra sobra: ya está abajo, a mano. */
+  .nav-wa {
+    transition:
+      opacity 0.25s,
+      transform 0.16s var(--ease-out-expo);
+  }
+  [data-open] .nav-wa {
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .menu-item {
+      transform: none;
     }
   }
 </style>
@@ -92,30 +221,63 @@ const wa = waLink(MAIN_WHATSAPP, 'Hola Black, quiero hacer una consulta.');
 <script>
   const nav = document.querySelector<HTMLElement>('[data-nav]')!;
   const toggle = nav.querySelector<HTMLButtonElement>('[data-menu-toggle]')!;
-  const menu = nav.querySelector<HTMLElement>('#menu-movil')!;
+  const menu = nav.querySelector<HTMLElement>('[data-menu]')!;
   const label = nav.querySelector<HTMLElement>('[data-menu-label]')!;
+  let open = false;
 
-  const onScroll = () => nav.toggleAttribute('data-scrolled', window.scrollY > 8);
+  menu.querySelectorAll<HTMLElement>('.menu-item').forEach((item, i) => item.style.setProperty('--i', String(i)));
+
+  // Barra: vidrio al scrollear y escondida mientras se baja.
+  let lastY = window.scrollY;
+  let frame = 0;
+  const onScroll = () => {
+    frame = 0;
+    const y = window.scrollY;
+    nav.toggleAttribute('data-scrolled', y > 8);
+    if (Math.abs(y - lastY) > 6) {
+      nav.toggleAttribute('data-hidden', y > lastY && y > 480);
+      lastY = y;
+    }
+  };
   onScroll();
-  window.addEventListener('scroll', onScroll, { passive: true });
+  window.addEventListener('scroll', () => frame || (frame = requestAnimationFrame(onScroll)), { passive: true });
+  // Si alguien tabula dentro de la barra escondida, vuelve a mostrarse.
+  nav.addEventListener('focusin', () => nav.removeAttribute('data-hidden'));
 
-  function setOpen(open: boolean) {
+  function setOpen(next: boolean) {
+    open = next;
     nav.toggleAttribute('data-open', open);
-    menu.hidden = !open;
+    menu.inert = !open;
     toggle.setAttribute('aria-expanded', String(open));
     label.textContent = open ? 'Cerrar menú' : 'Abrir menú';
-    toggle.querySelector('.menu-open')?.classList.toggle('hidden', open);
-    toggle.querySelector('.menu-close')?.classList.toggle('hidden', !open);
     document.documentElement.style.overflow = open ? 'hidden' : '';
   }
 
-  toggle.addEventListener('click', () => setOpen(menu.hidden));
+  toggle.addEventListener('click', () => setOpen(!open));
   menu.querySelectorAll('[data-menu-link]').forEach((link) => link.addEventListener('click', () => setOpen(false)));
+  nav.querySelector('[data-home]')?.addEventListener('click', () => open && setOpen(false));
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && !menu.hidden) {
+    if (e.key === 'Escape' && open) {
       setOpen(false);
       toggle.focus();
     }
   });
   window.matchMedia('(min-width: 768px)').addEventListener('change', (e) => e.matches && setOpen(false));
+
+  // Sección activa en la nav de escritorio.
+  const links = Array.from(nav.querySelectorAll<HTMLAnchorElement>('[data-nav-link]'));
+  const sections = links
+    .map((link) => document.querySelector<HTMLElement>(link.getAttribute('href')!))
+    .filter((s): s is HTMLElement => !!s);
+  const visible = new Set<string>();
+  const io = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((e) => (e.isIntersecting ? visible.add(e.target.id) : visible.delete(e.target.id)));
+      // La primera sección del documento que cruza la franja central es la activa.
+      const current = sections.find((s) => visible.has(s.id))?.id;
+      links.forEach((link) => link.setAttribute('aria-current', String(link.getAttribute('href') === `#${current}`)));
+    },
+    { rootMargin: '-45% 0px -50% 0px' },
+  );
+  sections.forEach((s) => io.observe(s));
 </script>

@@ -106,6 +106,7 @@ const jsonLd = {
     <meta name="twitter:image" content={ogImage} />
 
     <script type="application/ld+json" set:html={JSON.stringify(jsonLd)} />
+    <script is:inline>document.documentElement.classList.add('js');</script>
   </head>
   <body class="bg-ink text-fg">
     <a
@@ -114,5 +115,8 @@ const jsonLd = {
       >Saltar al contenido</a
     >
     <slot />
+    <script>
+      import '../scripts/reveal';
+    </script>
   </body>
 </html>
